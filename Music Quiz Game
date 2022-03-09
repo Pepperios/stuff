@@ -66,3 +66,4 @@ def game(answers, choices, artists):
         print(choices[num])
         num += 1
 library() # goes inside authorise later
+http://www.belpercomputing.com/wp-content/uploads/2018/09/503195-programming-project-tasks-june-2019-and-june-2020.pdf
