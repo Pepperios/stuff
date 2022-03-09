@@ -1,0 +1,68 @@
+import time
+
+def authorise(): # rework this to include a quitting comand
+    
+    u1 = ""
+    u2 = ""
+    
+    p1 = "JOE"
+    p2 = "BORIS"
+
+    while u1 != p1:
+        u1 = input("User1 enter your username: ")
+        u1 = u1.upper()
+            
+    while u2 != p2:
+        u2 = input("User2 enter your username: ")
+        u2 = u2.upper()
+   
+    if u1 == p1 and u2 == p2:
+        print("\n" + u1 + " you are authorised!\n" + u2 + " you are authorised!")   
+    else:
+        pass
+    
+    time.sleep(2.5)
+def library():
+    
+    artist_songs = {"meiyo": "Nothing's working out",
+                    "Great Gable": "Drift",
+                    "Astrophysics": "Lobotomy"}
+    
+    bad_words = [" ", "'", "-",]
+    
+    artists_list = list(artist_songs.keys())
+    songs_list = list(artist_songs.values())
+    convert(songs_list, bad_words, artists_list)     
+def convert(s,bad_words,a):
+    
+    num = -1
+    u_list = []
+    
+    for i in s:
+        
+        u_list.append("")
+        num += 1
+        num1 = 0
+        num2 = 0
+        
+        for i in s[num]:
+            
+            if i in bad_words or num1 == 0 or num2 == 1:
+                u_list[num] += i
+                num1 = 1
+                num2 = 0
+            else:
+                u_list[num] += " _"
+                
+            if i == " ":
+                u_list[num] += " "
+                num2 = 1
+                
+    game(s, u_list, a)
+def game(answers, choices, artists):       
+
+    num = 0
+    for i in answers:
+        print(choices[num])
+        num += 1
+library() # goes inside authorise later
