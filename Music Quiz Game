@@ -26,7 +26,8 @@ def library():
     
     artist_songs = {"meiyo": "Nothing's working out",
                     "Great Gable": "Drift",
-                    "Astrophysics": "Lobotomy"}
+                    "Astrophysics": "Lobotomy",
+                    "Michael Jackson": "Billie Jean"}
     
     bad_words = [" ", "'", "-",]
     
@@ -57,13 +58,25 @@ def convert(s,bad_words,a):
             if i == " ":
                 u_list[num] += " "
                 num2 = 1
-                
-    game(s, u_list, a)
-def game(answers, choices, artists):       
-
+    num += 1
+    
+    game(s, u_list, a, num)
+def game(answers, choices, artists, song_amount):  
+    
+    guesses = 2
     num = 0
-    for i in answers:
-        print(choices[num])
-        num += 1
+    
+
+        
+    while guesses > 0 or num != song_amount:
+        print(choices[num] + " by " + artists[num] + " is the hidden song!")
+        user = input("What is the song name? ")
+        if user == answers[num]:
+            print("You guessed correctly!\n")
+            num += 1
+        else:
+            print("You guessed incorrectly!\n")
+            guesses -= 1
+            num += 1
+                
 library() # goes inside authorise later
-http://www.belpercomputing.com/wp-content/uploads/2018/09/503195-programming-project-tasks-june-2019-and-june-2020.pdf
