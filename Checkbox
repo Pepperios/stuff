@@ -1,1 +1,33 @@
+from tkinter import *
 
+def display(): # function needs to be within import to function (.get command)
+    if (x.get()) == 1: # if they check the check button, why use .get?
+        print("you agree")
+    else:
+        print("you disagree")
+
+window = Tk()
+x = IntVar() # holds any integer value (Tkinter module), StrVar holds any string value (also Tkinter)
+#             BooleanValue holds bools etc
+dvdpath = "C:\\Users\\AnisimowWitold\\Documents\\Code\\images\\corona.png"
+dvd = PhotoImage(file = dvdpath)
+
+check_button = Checkbutton(window, 
+                           text = "Agreed", 
+                           variable = x, # checkbuttons store 1 or 0 by default
+                           onvalue = 1, # stored within the variable when turned on by default, can be changed to True or False or string values
+                           offvalue = 0, # stored when turned off by default
+                           command = display,
+                           font = ("Comic sans", 30),
+                           fg = "red",
+                           bg = "black",
+                           activeforeground = "red", # no flashing when press
+                           activebackground = "black",
+                           padx = 25, # space between x axis of border and text
+                           pady = 20, # space between y axis of border and text
+                           image = dvd,
+                           compound = LEFT # where text is relative to image
+                               )
+        
+check_button.pack()
+window.mainloop()
