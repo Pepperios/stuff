@@ -1,4 +1,3 @@
-
 # entry widget = textbox that accepts a single line of user input
 def submit():
     username = entrybox.get() # returns a string from the entrybox and username stores in a variable
