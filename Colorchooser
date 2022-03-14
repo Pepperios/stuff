@@ -1,0 +1,20 @@
+from tkinter import *
+from tkinter import colorchooser # submodule, necessary to add?
+
+def click():
+    color = colorchooser.askcolor() # creates a window where you can choose color
+    print(color) # prints RGB values of color then HEXValues (2 elements)
+    colorHex = color[1] # assigns var to hexvalue
+    print(colorHex)
+    window.config(bg = colorHex) # change bg color of window    
+    
+def clickity():
+    window.config(bg = colorchooser.askcolor()[1]) # takes one line of code does same as click
+    
+window = Tk()
+window.geometry("500x500") # sets size of window
+
+button = Button(text = "click me", command = click)
+
+button.pack()
+window.mainloop()
