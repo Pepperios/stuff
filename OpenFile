@@ -1,0 +1,20 @@
+from tkinter import *
+from tkinter import filedialog # submodule
+
+def open_file():
+    filepath = filedialog.askopenfilename(title = "Open File okay?", # gets filepath through button
+                                          initialdir = "C:\\Users\\AnisimowWitold\\Downloads", # where it begins your search for the file
+                                          filetypes = (("text files", "*.txt"), # first parameter what appears to user second parameter what files should be accepted
+                                          ("all files", "*.*")), # initially looks for text files, can change to all files
+                                          ) 
+    print(filepath)
+    file = open(filepath, "r") # r == read text
+    print(file.read())
+    file.close()
+
+window = Tk()
+
+button = Button(window, text = "OPEN", command = open_file)
+
+button.pack()
+window.mainloop()
