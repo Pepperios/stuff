@@ -1,0 +1,46 @@
+from tkinter import *
+
+def click():
+    
+    messagebox.showinfo(title = "This is an info message box", message = "You are shrek") # shows text box
+    messagebox.showwarning(title = "WARNING", message = "You have a virus") # shows warning message
+    messagebox.showerror(title = "ERROR", message = "Something went wrong") # shows error message
+    
+    if messagebox.askokcancel(title = "ask ok cancel", message = "Do you want to do the thing?"): # ok or cancel
+        print("You pressed ok") # messagebox returns True if you press OK
+    else:
+        print("You pressed Cancel") # messagebox returns False if you press cancel
+        
+    if messagebox.askretrycancel(title = "ask retry cancel", message = "Do you want to retry the thing?"): # ok or cancel
+        print("You retried a thing") # Press retry and returns True
+    else:
+        print("You pressed Cancel") # if cancel returns false
+        
+    if messagebox.askyesno(title = "ask yes or no", message = "Do you like cake?"): # returns true or false
+        print("I like cake too") # True
+    else:
+        print("Why do you hate cake?") # False
+        
+    answer = print(messagebox.askquestion (title = "ask question", message = "Do you like pie?")) # returns yes or no
+    if answer == "yes": # askquestion returns yes or no not true or false
+        print("I like pie too")
+    else:
+        print("Why do you hate pie?")
+        
+    ans = messagebox.askyesnocancel(title = "Yes No Cancel", message = "Do you like to dance?", icon = "warning") # can change icon to a preset icon 
+    if ans == True: # returns true if press Yes
+        print("You like to dance")
+    elif ans == False: # returns False if press No
+        print("You hate dancing!")
+    elif ans == None: # Returns None if press Cancel
+        print("Stop dodging things in your life")
+    else:
+        print("Impossible")
+        
+    
+window = Tk()
+
+button = Button(window, command = click, text = "click me")
+button.pack()
+
+window.mainloop()
