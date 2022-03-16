@@ -1,0 +1,14 @@
+from tkinter import *
+import time
+
+def windowmaker():
+    new_window = Toplevel() # Toplevel() = new window "on top" of other windows, linked to a "bottom window"
+    #                                      if you close out of a toplevel window, any bottomlevel windows also close
+    tk_window = Tk() # standard window, independent window
+    old_window.destroy() # closes out of original window
+
+old_window = Tk()
+
+Button(old_window, text = "Create Window", command = windowmaker).pack()
+
+old_window.mainloop()
