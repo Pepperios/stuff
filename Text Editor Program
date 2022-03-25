@@ -7,34 +7,60 @@ from tkinter.filedialog import *
 def change_color():
     color = colorchooser.askcolor(title = "Color Picker")
     text_area.config(fg = color[1]) # gets hex value of color
-
 def change_font(*args):
     text_area.config(font =(font_name.get(), size_box.get())) 
-
 def new_file():
-    pass
+    window.title("Untitled")
+    text_area.delete(1.0, end) # deletes first char to end, has to be float
+def open_file(): # fix
+    file = askopenfilename(defaultextension = ".txt", file =[("All files", "*.*"), ("Text Documents", "*.txt")]) # *.* = all files
 
-def open_file():
-    pass
-
+    try:
+        window.title(os.path.basename(file)) # title is the name
+        text_area.delete(1.0, END)
+        
+        theFile = open(file, "r") # reads file
+        
+        text_area.insert(.0, theFile.read()) # displays text within file
+        
+    except Exception:
+        print("Doesn't wok")
+        
+    finally:
+        theFile.close() # doesnt close
+        
 def save_file():
-    pass
+    file = filedialog.asksaveasfilename(initialfile = "untitled.txt",
+                                        defaultextension = ".txt",
+                                        filetypes = [("All files", "*.*"), 
+                                                     ("Txt Files", "*.txt")])
 
+    if file is None:
+        return 
+    
+    else:
+        try:
+            window.title(os.path.basename(file))
+            file = open(file, "w")
+            
+            file.write(text_area.get(1.0, END))
+            
+        except Exception:
+            print("didn't wok")
+            
+        finally:
+            file.close()      
 def cut():
-    pass
-
+    text_area.event_generate("<<Cut>>")
 def copy():
-    pass
-
+    text_area.event_generate("<<Copy>>")
 def paste():
-    pass
-
-def about():
-    pass
-
+    text_area.event_generate("<<Paste>>")
+def about(): # messagebox
+    showinfo("About this program", "This is a program written by PeppeR") # first arg title, second arg text
 def quit():
-    pass
-
+    window.destroy() # exits
+    
 window = Tk()
 window.title("Text Editor Program")
 file = None
@@ -77,6 +103,28 @@ font_box.grid(row = 0, column = 1) # option menu lists many options..
 size_box = Spinbox(frame, from_ = 1, to = 100, textvariable = font_size, command = change_font) # allows to change font size
 size_box.grid(row = 0, column = 2)
 
+menu_bar = Menu(window)
+window.config(menu = menu_bar) # adds menu bar
 
+file_menu = Menu(menu_bar, tearoff = 0) 
+
+menu_bar.add_cascade(label = "File", menu = file_menu)
+
+file_menu.add_command(label = "New", command = new_file)
+file_menu.add_command(label = "Open", command = open_file)
+file_menu.add_command(label = "Save", command = save_file)
+file_menu.add_separator()
+file_menu.add_command(label = "Exit", command = quit)
+
+edit_menu = Menu(menu_bar, tearoff = 0)
+menu_bar.add_cascade(label = "Edit", menu = edit_menu)
+
+edit_menu.add_command(label = "Cut", command = cut)
+edit_menu.add_command(label = "Copy", command = copy)
+edit_menu.add_command(label = "Paste", command = paste)
+
+help_menu = Menu(menu_bar, tearoff = 0)
+menu_bar.add_cascade(label = "Help", menu = help_menu)
+help_menu.add_command(label = "About", command = about)
 
 window.mainloop()
