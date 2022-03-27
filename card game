@@ -1,0 +1,55 @@
+from tkinter import *
+import time
+import random
+
+def authorise():
+    
+    u1 = ""
+    u2 = ""
+    
+    while u1 != p1:
+        u1 = input("User1 enter your username: ")
+        u1 = u1.upper()
+        
+    while u2 != p2:
+        u2 = input("User2 enter your username: ")
+        u2 = u2.upper()
+   
+    if u1 == p1 and u2 == p2:
+        print("\n" + u1 + " you are authorised!\n" + u2 + " you are authorised!")   
+    else:
+        pass
+    
+    time.sleep(2.5)
+def create_cards():
+    
+    
+    colors = ["Red", "Black", "Yellow"]
+    numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    cards = []
+    numVal = 0
+    
+    for i in enumerate(numbers):
+        colorVal = 0
+        for i in enumerate(colors):
+            details = colors[colorVal], numbers[numVal]
+            cards.append(details)
+            colorVal += 1
+        numVal += 1
+            
+    random.shuffle(cards)
+    start_game(cards)
+def start_game(cards):
+    
+    for i in cards:
+        print(i)
+    
+    for i in cards:
+        
+        if cards[p1v][0] == cards[p2v][0]:
+                pass
+
+        
+        p1v += 1
+
+create_cards()
