@@ -41,15 +41,36 @@ def create_cards():
     start_game(cards)
 def start_game(cards):
     
-    for i in cards:
-        print(i)
+    col = 0 # value for color in cards
+    num = 1 # value for number in cards
+    t = 2.5 # how long each pause should be
+    p1 = 0 
+    p2 = 1
+    cardVal = 0
     
-    for i in cards:
-        
-        if cards[p1v][0] == cards[p2v][0]:
-                pass
+    length = len(cards)
+    while length != 0:
+        try:
+            
+            cardVal += 1
+            print("Player 1 took Card " + str(cardVal) + " from the top | " + cards[p1][col] + " | " + str(cards[p1][num]))
+            time.sleep(t)
+            cardVal += 1
+            print("Player 2 took Card " + str(cardVal) + " from the top | " + cards[p2][col] + " | " + str(cards[p2][num]) + "\n")
+            time.sleep(t)
+                       
+            if cards[p1][col] == cards[p2][col]:
+                print("They are the same color " + cards[p1][col] + " | " + cards[p2][col])
+                if cards[p1][num] > cards[p2][num]:
+                    print("Player 1 has the higher number " + str(cards[p1][num]) + "\n")
+                else:
+                    print("Player 2 has the higher number " + str(cards[p2][num]) + "\n")
+                    
+            cards.pop(0)
+            cards.pop(0)
+                
+        except IndexError:
+            break
 
-        
-        p1v += 1
 
 create_cards()
