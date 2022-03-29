@@ -6,21 +6,29 @@ def authorise():
     
     u1 = ""
     u2 = ""
+        
+    p1 = "A"
+    p2 = "B"
     
     while u1 != p1:
         u1 = input("User1 enter your username: ")
         u1 = u1.upper()
-        
+        if u1.lower() == "quit":
+            break
+                
     while u2 != p2:
+        if u1.lower() == "quit":
+            break
         u2 = input("User2 enter your username: ")
         u2 = u2.upper()
-   
+
+       
     if u1 == p1 and u2 == p2:
-        print("\n" + u1 + " you are authorised!\n" + u2 + " you are authorised!")   
-    else:
-        pass
+        print("\n" + u1 + " you are authorised!\n" + u2 + " you are authorised!\n")  
     
-    time.sleep(2.5)
+    time.sleep(0.25)
+    
+    create_cards() 
 def create_cards():
     
     
@@ -38,17 +46,25 @@ def create_cards():
         numVal += 1
             
     random.shuffle(cards)
-    start_game(cards)
+    start_game(cards) 
+def append(cl, p, p2):
+    for i in [p, p2]:
+        cl.append(i)      
 def start_game(cards):
     
     col = 0 # value for color in cards
     num = 1 # value for number in cards
-    t = 2.5 # how long each pause should be
+    t = 0.2 # how long each pause should be
+    
     p1 = 0 
     p2 = 1
+    
+    cardsP1 = []
+    cardsP2 = []
     cardVal = 0
     
     length = len(cards)
+    
     while length != 0:
         try:
             
@@ -61,16 +77,60 @@ def start_game(cards):
                        
             if cards[p1][col] == cards[p2][col]:
                 print("They are the same color " + cards[p1][col] + " | " + cards[p2][col])
+                time.sleep(t)
                 if cards[p1][num] > cards[p2][num]:
                     print("Player 1 has the higher number " + str(cards[p1][num]) + "\n")
+                    append(cardsP1, cards[p1], cards[p2])
+                    time.sleep(t)
                 else:
                     print("Player 2 has the higher number " + str(cards[p2][num]) + "\n")
+                    append(cardsP2, cards[p1], cards[p2])
+                    time.sleep(t)
                     
+            if cards[p1][col] == "Red" and cards[p2][col] == "Black" or cards[p1][col] == "Yellow" and cards[p2][col] == "Red" or cards[p1][col] == "Black" and cards[p2][col] == "Yellow":
+                print(f"Player 1 has a {cards[p1][col]} and Player 2 has a {cards[p2][col]}")
+                print(f"{cards[p1][col]} vs {cards[p2][col]}, | Player1 wins\n")
+                append(cardsP1, cards[p1], cards[p2])
+                time.sleep(t)
+                
+            if cards[p2][col] == "Red" and cards[p1][col] == "Black" or cards[p2][col] == "Yellow" and cards[p1][col] == "Red" or cards[p2][col] == "Black" and cards[p1][col] == "Yellow":
+                print(f"Player 1 has a {cards[p1][col]} and Player 2 has a {cards[p2][col]}")
+                print(f"{cards[p1][col]} vs {cards[p2][col]} | Player2 wins\n")
+                append(cardsP2, cards[p1], cards[p2])
+                time.sleep(t)
+            
             cards.pop(0)
             cards.pop(0)
                 
         except IndexError:
             break
-
-
-create_cards()
+    
+    score1 = len(cardsP1)
+    score2 = len(cardsP2)
+    
+    if score1 > score2:
+        print(f"Player 1 wins with {score1} cards!", end = " ")
+        time.sleep(t)
+        print(f"\nThe winning cards are:\n{cardsP1}")
+        time.sleep(t)
+        print(f"\nPlayer 2 only won {score2} cards :(", end = " ")
+        time.sleep(t)
+        print(f"\nThe losing cards are:\n{cardsP2}")
+        time.sleep(t)
+    elif score1 == score2:
+        print(f"Both players tied with {score1} cards!")
+        time.sleep(t)
+        print(f"\nPlayer1 Cards:\n{cardsP1}\n\nPlayer2 Cards:\n{cardsP2}")
+        time.sleep(t)
+        print("Better luck next time ")
+        time.sleep(t)
+    else:
+        print(f"Player 1 wins with {score2} cards!", end = " ")
+        time.sleep(t)
+        print(f"\nThe winning cards are:\n{cardsP2}")
+        time.sleep(t)
+        print(f"\nPlayer 2 only won {score1} cards :(", end = " ")
+        time.sleep(t)
+        print(f"\nThe losing cards are:\n{cardsP1}")   
+        time.sleep(t)
+authorise()
