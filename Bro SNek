@@ -3,7 +3,7 @@ import random
 
 GAME_WIDTH = 800
 GAME_HEIGHT = 600
-SPEED = 50
+SPEED = 100 # higher value slower snake
 SPACE_SIZE = 50
 BODY_PARTS = 3
 SNAKE_COLOR = "green"
@@ -57,20 +57,52 @@ def next_turn(snake, food):
         
     snake.squares.insert(0, square)
     
-    del snake.coordinates[-1] # deletes last body part
-    
-    canvas.delete(snake.squares[-1])
-    
-    del snake.squares[-1]
-    
-    window.after(SPEED, next_turn, snake, food) # ??
+    if x == food.coordinates[0] and y == food.coordinates[0]: # if snake touches food
+        
+        global score
+        
+        score += 1
+        
+        label.config(text = "Score: {}".format(score))
+        
+        canvas.delete("food")
+        
+        food = Food() # creates new food object
+        
+    else:
+        
+        del snake.coordinates[-1] # deletes last body part
+        
+        canvas.delete(snake.squares[-1])
+        
+        del snake.squares[-1]
+        
+    if check_collisions(snake):
+        game_over()
+        
+    else:
+        window.after(SPEED, next_turn, snake, food) # ??
         
         
 
 def change_direction(new_direction):
-    pass
+    
+    global direction
+    
+    if new_direction == "left":
+        if direction != "right":
+            direction = new_direction
+    elif new_direction == "right":
+        if direction != "left":
+            direction = new_direction
+    elif new_direction == "up":
+        if direction != "down":
+            direction = new_direction
+    elif new_direction == "down":
+        if direction != "up":
+            direction = new_direction
 
-def check_collisions():
+def check_collisions(snake):
     pass
 
 def game_over():
@@ -99,6 +131,11 @@ x = int((screen_width/2) - (window_width/2))
 y = int((screen_height/2) - (window_height/2))
 
 window.geometry(f"{window_width}x{window_height}+{x}+{y}") # creates window close to center
+
+window.bind("<Left>", lambda event: change_direction("left"))
+window.bind("<Right>", lambda event: change_direction("right"))
+window.bind("<Up>", lambda event: change_direction("up"))
+window.bind("<Down>", lambda event: change_direction("down"))
 
 snake = Snake() # creates class
 food = Food()
