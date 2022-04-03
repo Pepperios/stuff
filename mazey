@@ -1,0 +1,62 @@
+from tkinter import *
+# find the largest list to use as width and find the amount of 
+# lists to use as height then store as variables to use later to create gridsize
+WIDTH = 500
+HEIGHT = 500
+
+level_one = [["x","x"," ","x","x"],
+             ["x","x"," "," ","x"],
+             ["x","x"," ","x","x"],
+             ["x"," "," ","x","x"],
+             ["x"," ","x","x","x"],
+             ["x"," ","x","x","x"],
+             ["x"," ","x","x","x"],
+             ["x"," ","x","x","x"],
+             ["x"," ","x","x","x"]]
+
+def create_walls():
+    
+    game_width = len(level_one[0])
+    game_height = len(level_one)
+
+# level_one = iterates amount of lists (currently 9)
+# level_one[0] = iterates through every element in list (currently 5 per list)
+# level_one[0][0] = targets specific element in list, don't use to iterate!!
+
+    indiv_list = 0
+    for lists in level_one: # iterates 9 times
+        for element in level_one[indiv_list]: # iterates 5 times 9 times
+            if element == "x":
+                print("It's an x!")
+            elif element == " ":
+                print("It's an " "")
+                
+        indiv_list += 1
+
+try:         
+    
+    # window = Tk()
+
+    window.title("Maze Game")
+    window.resizable(False, False)
+    
+    canvas = Canvas(window, bg = "black", width = WIDTH, height = HEIGHT)
+    canvas.pack()
+    
+    window.update() # very necessary even if it doesnt seem so
+    window_width = window.winfo_width()
+    window_height = window.winfo_height()
+    screen_width = window.winfo_screenwidth()
+    screen_height = window.winfo_screenheight()
+    
+    x = int((screen_width/2) - (window_width/2))
+    y = int((screen_height/2) - (window_height/2))
+    
+    window.geometry(f"{window_width}x{window_height}+{x}+{y}")
+    
+    window.mainloop()
+    
+except NameError:
+    pass
+
+create_walls()
