@@ -4,16 +4,16 @@ from tkinter import *
 WIDTH = 500
 HEIGHT = 500
 
-level_one = [["x","x"," ","x","x"],
-             ["x","x"," ","x","x"],
-             ["x","x"," ","x","x"],
-             ["x"," "," ","x","x"],
-             ["x"," ","x","x","x"],
-             ["x"," ","x","x","x"],
-             ["x"," "," ","x","x"],
-             ["x","x"," ","x","x"],
-             ["x","x"," ","x","x"],
-             ["x"," "," ","x","x"]]
+level_one = [["S"," ","x","x","x"," "," "," ","x","x"],
+             ["x"," "," "," ","x","x","x"," "," "," "],
+             ["x","x","x"," "," "," "," "," ","x"," "],
+             ["x"," ","x"," ","x","x","x"," ","x"," "],
+             ["x"," ","x"," "," ","x","x"," ","x"," "],
+             ["x"," ","x","x"," ","x"," "," ","x"," "],
+             [" "," "," ","x","x","x"," "," "," "," "],
+             [" ","x"," ","x"," "," "," ","x","x","x"],
+             [" ","x"," ","x"," ","x"," "," "," "," "],
+             ["E","x"," "," "," ","x","x","x","x"," "]]
 
 def create_obj():
     
@@ -28,10 +28,16 @@ def create_obj():
     for lists in level_one: 
         num = 0
         for element in level_one[num2]:
-            if element == "x":
-                canvas.create_rectangle(num * game_width,num2 * game_height, num * game_width + game_width, num2 * game_height + game_height, fill = "red")
-            elif element == " ":
+            if element == " ":
                 pass
+            elif element == "x":
+                canvas.create_rectangle(num * game_width,num2 * game_height, num * game_width + game_width, num2 * game_height + game_height, fill = "red")
+            elif element == "E":
+                canvas.create_rectangle(num * game_width,num2 * game_height, num * game_width + game_width, num2 * game_height + game_height, fill = "yellow")
+            elif element == "S":
+                start = canvas.create_rectangle(num * game_width,num2 * game_height, num * game_width + game_width, num2 * game_height + game_height, fill = "blue")
+            else:
+                print("incorrect symbol", num, num2)
             num+=1
         num2 += 1
 
