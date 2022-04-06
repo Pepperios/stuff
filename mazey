@@ -15,7 +15,7 @@ level_one = [["x","x"," ","x","x"],
              ["x","x"," ","x","x"],
              ["x"," "," ","x","x"]]
 
-def create_walls():
+def create_obj():
     
     game_width = WIDTH / len(level_one[0])
     game_height = HEIGHT / len(level_one)
@@ -25,16 +25,14 @@ def create_walls():
 # level_one[0][0] = targets specific element in list, don't use to iterate!!
 
     num2 = 0
-    for lists in level_one: # iterates 9 times
+    for lists in level_one: 
         num = 0
-        for element in level_one[num2]: # iterates 5 times 9 times
+        for element in level_one[num2]:
             if element == "x":
-                print("It's an X") # find out how to make a border for rectangle
                 canvas.create_rectangle(num * game_width,num2 * game_height, num * game_width + game_width, num2 * game_height + game_height, fill = "red")
             elif element == " ":
-                print("It's an " "")
+                pass
             num+=1
-                
         num2 += 1
 
 try:            
@@ -57,8 +55,9 @@ try:
     y = int((screen_height/2) - (window_height/2))
     
     window.geometry(f"{window_width}x{window_height}+{x}+{y}")
-    create_walls()
+    create_obj()
     window.mainloop()
     
 except NameError:
     print("Name error")
+
