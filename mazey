@@ -1,4 +1,6 @@
 from tkinter import *
+import time
+from PIL import Image, ImageTk # needed for Image
 # find the largest list to use as width and find the amount of 
 # lists to use as height then store as variables to use later to create gridsize
 WIDTH = 500
@@ -16,6 +18,8 @@ level_one = [["S"," ","x","x","x"," "," "," ","x","x"],
              ["E","x"," "," "," ","x","x","x","x"," "]]
 
 def create_obj():
+    
+    global player
     
     game_width = WIDTH / len(level_one[0])
     game_height = HEIGHT / len(level_one)
@@ -35,16 +39,46 @@ def create_obj():
             elif element == "E":
                 canvas.create_rectangle(num * game_width,num2 * game_height, num * game_width + game_width, num2 * game_height + game_height, fill = "yellow")
             elif element == "S":
-                start = canvas.create_rectangle(num * game_width,num2 * game_height, num * game_width + game_width, num2 * game_height + game_height, fill = "blue")
+                player = canvas.create_rectangle(num * game_width + game_width / 5,
+                                                 num2 * game_height + game_height / 5,
+                                                 num * game_width + game_width - game_width / 5,
+                                                 num2 * game_height + game_height - game_height / 5,
+                                                 fill = "blue")
             else:
                 print("incorrect symbol", num, num2)
             num+=1
         num2 += 1
+        
+    window.bind("<Up>", up)
+    window.bind("<Down>", down)
+    window.bind("<Left>", left)
+    window.bind("<Right>", right)
+    
+    window.bind("<w>", up)
+    window.bind("<s>", down)
+    window.bind("<a>", left)
+    window.bind("<d>", right)
+    
+def check_collisions():
+    pass
+    
+def up(event):
+    canvas.move(player, 0, -10)
 
+def down(event):
+    canvas.move(player, 0, 10)
+
+def left(event):
+    canvas.move(player, -10, 0)
+
+def right(event):
+    canvas.move(player, 10, 0)
+    
+    
 try:            
     
     window = Tk()
-
+    
     window.title("Maze Game")
     window.resizable(False, False)
     
@@ -61,9 +95,14 @@ try:
     y = int((screen_height/2) - (window_height/2))
     
     window.geometry(f"{window_width}x{window_height}+{x}+{y}")
-    create_obj()
+    
+    create_obj()    
+    
     window.mainloop()
     
 except NameError:
     print("Name error")
-
+    
+except RuntimeError:
+    print("Too early to create image")
+ 
